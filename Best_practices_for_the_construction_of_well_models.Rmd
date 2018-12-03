@@ -1,0 +1,199 @@
+---
+title: "Best practices for the construction of well models"
+author: "Alfonso R. Reyes"
+date: "January 2016"
+fontsize: 14pt
+output:
+  beamer_presentation:
+    fig_width: 7
+    fig_height: 3.5
+    highlight: tango
+    theme: metropolis
+    includes:
+      in_header: header.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, cache=TRUE, warning=FALSE, message=FALSE)
+options(digits=4)
+```
+
+
+# On the well data
+
+## Inventory
+\fontsize{13}{15}\sf
+
+* Start by making a good inventory of your well data and put it all in a table with a \structure{standard name} for the well and strings (if you have dual completion)
+
+* Besides the typical downhole equipment, procure also the \structure{Gas Lift} mechanical properties. It will be very useful at the time of optimizing the well and finding opportunities for deepening the \structure{injection point}
+
+* Confirm the \structure{units} system for diameters, lengths, depths, etc. Sometimes multiple systems are used in the same equipment sheet
+
+## Pressure tests
+* Registering pressures is frequently being neglected in favor of flow rates. It will help in the long term to have a \structure{basic database} for any type of pressure tests of the wells
+
+* Establish a \structure{standard format} for the pressure tests originated from different vendors
+
+* \structure{Document} calculations, corrections to datum, correction to depth, or units conversion that you perform on the pressure raw data in a simple text file
+
+* Do not modify the \structure{pressure raw data}
+
+## Fluids
+\fontsize{13}{15}\sf
+
+* If you have \structure{different gas streams} for the produced gas and the injection gas for gas lift wells, take note of the basic properties for the injection gas: specific gravity; CO2, H2S and N2 content. 
+
+* Be mindful that the gas you are injecting into the well may not have the \structure{same properties} of the gas the well is producing
+
+* Procure the PVT data and PVT data reports. If you are doing \structure{multilayer calculations}, ensure that you have the PVT data for each of the layers that are shown in your well schematic
+
+## Schematics
+\fontsize{13}{15}\sf
+
+* Ensure that you have the most current well schematic. Confirm with the \structure{wells intervention and completions} department
+
+* A brief \structure{log} of the interventions will be helpful
+
+* Keep a copy of the original \structure{deviation survey}
+
+* Do not modify the \structure{raw data} of the deviation survey
+
+
+# On the field data
+
+## Wellhead
+\fontsize{13}{15}\sf
+
+* Request from Operations, measurements of the \structure{wellhead temperature} for the wells in the model. That will help to obtain a HTC or "U" value within a reasonable range when you build the models
+
+* If possible, get values for pressure upstream and downstream the \structure{choke}. This is key for later running more accurate optimization scenarios. The alternative is to have the orifice size of the choke, which most of the time we don’t have or is innacurate
+
+## Flowlines and surface
+
+* Have at hand a simplified schematic of the \structure{flowlines} of your well and connections to other wells up to separator.
+
+* Get familiar with the \structure{instrumentation} in the field that is used for fluid measurement when a well is put to test
+
+* Identify the wells and flowlines that are \structure{common} to high or low pressure manifolds
+
+
+# On models and correlations
+
+## IPR
+\fontsize{13}{15}\sf
+
+* Your best and most enduring IPR models will be those where you have and can provide \structure{more data about your reservoir}. Simpler models will ask for less input data and would probably give you innacurate matching
+
+* Even knowing that the \structure{easiest way} to get around the IPR curve generation is "PI Entry", it may not always be the most accurate. More often than likely it will be not be valid in the next well tests 
+
+## IPR and VLP
+* If you modify you \structure{well test data} in the matching screen, document it in the comment column with remarks on that change. Keep the original well test point and comment it as "original“ and then disable it from calculations
+
+* When you are \structure{finally adjusting} your IPR/VLP don't forget to change the final VLP model at the main screen
+
+
+## VLP
+
+* If you don't have \structure{FGS} for the determination of the VLP curve of your wells you may not get the best matching but it shouldn't be a show stopper either: use the VLP that gave you best results in the past, or VLPs that worked reliably in other wells in the neighbourhood
+
+* \structure{Mechanistic models} are not for every well in the world. There are VLP correlations that have worked very well for many years. Often simpler is better.
+
+
+## PVT
+* Get screenshots of the generated \structure{PVT matching} and plots for your GOR, FVF and oil viscosity and paste them in an auxiliary file. Compare to PVT curves available from reservoir engineering. This is a efficient way to be certain about the quality of your matching in the future
+
+
+
+# On the model construction
+
+## Layers
+Check that you well schematic: \vspace*{0.3cm}
+
+  1. has indication of the layers
+  2. strings or layers that are active or shut in
+  3. the upper and lower boundaries
+  4. temperatures and pressures
+  5. allows to correlate your layers with the PVT
+
+
+## Activation Matrix
+Have at hand a graphical matrix of your wells by status: 
+\vspace*{0.3cm}
+
+  1. active, 
+  2. inactive, 
+  3. idle, 
+  4. other
+
+\vspace*{0.3cm}  
+That will help with the network model and the validation points later on
+
+## Wells and strings identification
+\fontsize{13}{15}\sf
+
+* Using a \structure{unique well name} is key if you plan to do **data science** on your wells 
+
+* When naming your wells use the same nomenclature as in the \structure{master production database}. That will help you a lot later for searching of well tests, daily production, idle status, etc. 
+
+* The same applies to the \structure{field name} and the \structure{platform} name: use the production database standard. 
+
+* Use the \structure{[Well] placeholder} for keeping the well name = fieldname + platform letter + well number + string type
+
+
+## When you should stop
+
+* Stop your modeling if you get U values like \structure{100 or 1,000} during the VLP/IPR matching. That means that something is \structure{wrong} with either:
+
+  - the wellhead temperature, 
+  - the temperature gradient, 
+  - you completion design in the downhole equipment entry screen
+  - the deviation survey vs downhole equipment location
+
+
+# On the models and files
+
+## Folders, files
+
+* Save your well models that are connected to the network model in an \structure{exclusive folder}. If a well is removed from the network, remove it also from that folder to a temporary location. Document it.
+
+* Use a \structure{simple text editor} and **Markdown** to document changes.
+
+* Create a \structure{README.md} file and document the steps to run the models.
+
+* Create a \structure{NEWS.md} file and document important changes in the models.
+
+
+## Software
+\fontsize{13}{15}\sf
+
+* Ensure that you and your team are all using the same \structure{version} and \structure{build}. If they don't match it is likely that your wells will show an erratic behaviour or bugs when you start \structure{sharing with your team}, or showing different results
+
+* \structure{Newer does not necessarily always mean better}. Hold on continuous updates of your software version unless you have been notified by your SME team. Tipically, when you install a newer version you cannot go backwards
+
+
+# Appendix
+
+## Glossary
+
+FVF
+: Formation Volume Factor
+
+GOR
+: Gas Oil Ratio
+
+HTC
+: Heat Transfer Coefficient
+
+IPR
+: Inflow Production Relationship
+
+PVT
+: Pressure Volume Temperature
+
+
+SME
+: SUbject Matter Expert
+
+VLP
+: Vertical Lift Performance
